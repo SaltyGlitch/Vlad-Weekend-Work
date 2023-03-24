@@ -6,17 +6,22 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using FinalProject.Models;
+using FinalProject.Services.Interfaces;
 
 namespace FinalProject.Controllers
 {
     public class DishesController : Controller
     {
-        private readonly Context _context;
+        private Context _context { get; set; }
+        private IDishService DishService { get; set; }
 
-        public DishesController(Context context)
+        public DishesController(Context context, IDishService dishService)
         {
             _context = context;
+            DishService = dishService;
         }
+        
+        
 
         // GET: Dishes
         public async Task<IActionResult> Index()

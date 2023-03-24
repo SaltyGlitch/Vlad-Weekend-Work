@@ -17,7 +17,7 @@ public class RestaurantService : IRestaurantService
         => await QueryAllRestaurants().ToListAsync();
 
     public Task<Restaurant> GetRestaurantById(int id)
-        => _context.Restaurants.FirstAsync(r => r.Id == id);
+        => _context.Restaurants.FirstAsync(restaurant => restaurant.Id == id);
 
     public async Task<List<Restaurant>> FilterRestaurantsBySearchBar(string input)
     {

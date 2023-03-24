@@ -8,24 +8,26 @@ namespace FinalProject.Controllers;
 [ApiController]
 public class MainController : ControllerBase
 {
-    private IRestaurantService _restaurantService { get; set; }
+    private IRestaurantService RestaurantService { get; set; }
+    private IDishService DishService { get; set; }
 
-    public MainController(IRestaurantService restaurantService)
+    public MainController(IRestaurantService restaurantService, IDishService dishService)
     {
-        _restaurantService = restaurantService;
+        RestaurantService = restaurantService;
+        DishService = dishService;
     }
 
     [HttpGet]
     public async Task<ActionResult<List<Restaurant>>> GetAllRestaurants() =>
-        await _restaurantService.GetAllRestaurants(); // Check if Empty. If empty, return BadRequest
+        await RestaurantService.GetAllRestaurants(); // Check if Empty. If empty, return BadRequest
 
     [HttpGet]
     [Route("search/{input}")]
     public async Task<ActionResult<List<Restaurant>>> FilterRestaurantsFromSearch(string input)
-        => await _restaurantService.FilterRestaurantsBySearchBar(input);
+        => await RestaurantService.FilterRestaurantsBySearchBar(input);
 
     [HttpGet]
     [Route("{id}")]
     public async Task<ActionResult<Restaurant>> GetRestaurantById(int id)
-        => await _restaurantService.GetRestaurantById(id);
+        => await RestaurantService.GetRestaurantById(id);
 }
